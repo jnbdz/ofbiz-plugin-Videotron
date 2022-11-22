@@ -20,8 +20,30 @@
 dependencies {
     //Examples of compile-time and runtime dependencies
 
+    /*pluginLibsCompile "org.springframework:spring-context:${springVersion}"
+    pluginLibsCompile "org.springframework.boot:spring-boot:${springBootVersion}"
+    pluginLibsCompile "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+    pluginLibsCompileOnly "org.springframework.boot:spring-boot-starter-tomcat:${springBootVersion}"
+    pluginLibsCompileOnly "javax.servlet:javax.servlet-api:4.0.0"
+    pluginLibsCompile "org.springframework:spring-webmvc:${springVersion}"
+    pluginLibsCompile "org.springframework:spring-tx:${springVersion}"
+    pluginLibsCompile "org.springframework:spring-jcl:${springVersion}"
+    pluginLibsCompile "ch.qos.logback:logback-classic:1.2.3"
+    pluginLibsCompile "org.eclipse.jetty:jetty-server:9.4.21.v20190926"
+    pluginLibsCompile "org.springframework:spring-aop:${springVersion}"
+    pluginLibsCompile "org.springframework:spring-orm:${springVersion}"*/
+
+    // https://mvnrepository.com/artifact/org.springframework.vault/spring-vault-core
+    pluginLibsCompile 'org.springframework.vault:spring-vault-core:2.3.2'
+
     //pluginLibsCompile 'junit:junit-dep:4.10'
     //pluginLibsRuntime 'junit:junit-dep:4.10'
+
+    // https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
+    pluginLibsCompile 'org.apache.tika:tika-parsers:2.6.0'
+
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    pluginLibsCompile 'org.jsoup:jsoup:1.15.3'
 }
 
 task install {
