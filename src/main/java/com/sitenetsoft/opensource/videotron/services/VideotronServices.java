@@ -17,7 +17,7 @@ public class VideotronServices {
 
     public static final String module = VideotronServices.class.getName();
 
-    public static Map<String, Object> createOfbizDemo(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> pullDataVideotron(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
         try {
@@ -30,18 +30,18 @@ public class VideotronServices {
                 System.out.println(exception);
             }
 
-            GenericValue ofbizDemo = delegator.makeValue("Videotron");
+            GenericValue videotron = delegator.makeValue("VideotronInvoices");
             // Auto generating next sequence of ofbizDemoId primary key
-            ofbizDemo.setNextSeqId();
+            videotron.setNextSeqId();
             // Setting up all non primary key field values from context map
-            ofbizDemo.setNonPKFields(context);
+            videotron.setNonPKFields(context);
             // Creating record in database for OfbizDemo entity for prepared value
-            ofbizDemo = delegator.create(ofbizDemo);
-            result.put("videotronId", ofbizDemo.getString("videotronId"));
-            Debug.log("==========This is my first Java Service implementation in Apache OFBiz. Videotron record created successfully with ofbizDemoId: "+ofbizDemo.getString("ofbizDemoId"));
+            videotron = delegator.create(videotron);
+            result.put("videotronId", videotron.getString("videotronId"));
+            Debug.log("==========This is my first Java Service implementation in Apache OFBiz. Videotron record created successfully with ofbizDemoId: " + videotron.getString("videotronId"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Error in creating record in OfbizDemo entity ........" +module);
+            return ServiceUtil.returnError("Error in creating record in Videotron Invoice entity ........" +module);
         }
         return result;
 
