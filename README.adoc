@@ -1,3 +1,10 @@
+Still in dev.
+
+Unofficial OFBiz Videotron repository.
+
+This project is not link in anyway with Videotron and/or Quebecor.
+
+This project was made by Jean-Nicolas Boulay.
 
 The files in this directory are used as templates for the ant create-component target, +
 please do not modify them without understanding the effect that it will have on that build target.
