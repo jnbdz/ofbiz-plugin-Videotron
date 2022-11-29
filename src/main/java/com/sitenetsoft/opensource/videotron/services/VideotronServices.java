@@ -17,60 +17,91 @@ public class VideotronServices {
 
     public static final String module = VideotronServices.class.getName();
 
-    class CustomerCenterSections {
-        public String dashboard = "https://www.videotron.com/client/affaires/dashboard.do";
-        public String facture = "https://www.videotron.com/client/user-management/affaires/facture.do?dispatch=displayFacture";
-        public String paymentPreautorise = "https://www.videotron.com/client/affaires/secur/ppa/start.do";
-        public String rechercherNumerosPourUsage = "https://www.videotron.com/client/affaires/secur/wireless/rechercherNumerosPourUsage.do";
-        public String rechercherUsageDetails = "https://www.videotron.com/client/affaires/secur/wireless/rechercherUsageDetails.do";
-        public String profile = "https://www.videotron.com/client/affaires/profile.do?dispatch=initProfile&appId=EC";
-        public String displayAgreements = "https://www.videotron.com/client/affaires/agreements/secur/DisplayAgreements.action";
-        public String manageDomain = "https://www.videotron.com/client/user-management/affaires/secur/ManageDomain.do?dispatch=initDomainManagement";
+    static class CustomerCenterSections {
+        public static String dashboard = "https://www.videotron.com/client/affaires/dashboard.do";
+        public static String facture = "https://www.videotron.com/client/user-management/affaires/facture.do?dispatch=displayFacture";
+        public static String paymentPreautorise = "https://www.videotron.com/client/affaires/secur/ppa/start.do";
+        public static String rechercherNumerosPourUsage = "https://www.videotron.com/client/affaires/secur/wireless/rechercherNumerosPourUsage.do";
+        public static String rechercherUsageDetails = "https://www.videotron.com/client/affaires/secur/wireless/rechercherUsageDetails.do";
+        public static String profile = "https://www.videotron.com/client/affaires/profile.do?dispatch=initProfile&appId=EC";
+        public static String displayAgreements = "https://www.videotron.com/client/affaires/agreements/secur/DisplayAgreements.action";
+        public static String manageDomain = "https://www.videotron.com/client/user-management/affaires/secur/ManageDomain.do?dispatch=initDomainManagement";
 
-        public String = "https://www.videotron.com/client/affaires/linkdevicesim/listdevicesim.action"
+        public static String listdevicesimAction = "https://www.videotron.com/client/affaires/linkdevicesim/listdevicesim.action";
     }
 
-    class LoginFormInputs {
-        public String tokenName = "token_name";
-        public String tokenNameValue = "btoken";
+    static class CustomerCenterAuth {
+        public static String authentication = "https://id.videotron.com/oam/server/authentication";
+        public static String authenticationHttpMethod = "POST";
 
-        public String btoken = "btoken"
-        public String btokenValue = "mwurcAAwpuJZIvjdkNAbiA9hL8ogy6sqEvnr";
+        public static String loginAppResult = "https://id.videotron.com/vl-sso-bin/login-app-result.pl?postAuthn=1";
+        public static String loginAppResultHttpMethod = "GET";
 
-        public String dispatch = "dispatch";
-        public String dispatchValue = "login";
+        public static String ping = "https://www.videotron.com/client/commun/ping.jsp";
+        public static String pingHttpMethod = "GET";
 
-        public String appId = "appId";
-        public String appIdValue = "EC";
+        public static String obrareq = "https://id.videotron.com/obrareq.cgi?encquery="
+        public static String obrareqHttpMethod = "GET";
 
-        public String domain = "domain";
-        public String domainValue = "domainType.business";
+        public static String obrar = "https://www.videotron.com/obrar.cgi?encreply="
+        public static String obrarHttpMethod = "GET";
 
-        public String cookieEnabled = "cookieEnabled";
-        public String cookieEnabledValue = "false";
+        public static String loginDo = "https://www.videotron.com/client/user-management/affaires/secur/Login.do"
+        public static String loginDoHttpMethod = "POST";
+    }
 
-        public String type = "type";
-        public String typeValue = "SSO-AFF-V1";
+    static class LoginFormInputs {
+        public static String tokenName = "token_name";
+        public static String tokenNameValue = "btoken";
 
-        public String username = "username";
-        public String password = "password";
+        public static String btoken = "btoken";
+        public static String btokenValue = "mwurcAAwpuJZIvjdkNAbiA9hL8ogy6sqEvnr";
+
+        public static String dispatch = "dispatch";
+        public static String dispatchValue = "login";
+
+        public static String appId = "appId";
+        public static String appIdValue = "EC";
+
+        public static String domain = "domain";
+        public static String domainValue = "domainType.business";
+
+        public static String cookieEnabled = "cookieEnabled";
+        public static String cookieEnabledValue = "false";
+
+        public static String type = "type";
+        public static String typeValue = "SSO-AFF-V1";
+
+        public static String username = "username";
+        public static String password = "password";
     }
 
     public static Map<String, Object> pullDataVideotron(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
 
+        CustomerCenterSections customerCenterSections = new CustomerCenterSections();
+        LoginFormInputs loginFormInputs = new LoginFormInputs();
+
         try {
 
             try {
-                /*Connection.Response loginForm = Jsoup.connect(CustomerCenterSections.class.dashboard)
+                // Get the Cookie that is initialized in the login form page
+                Connection.Response loginForm = Jsoup.connect(customerCenterSections.dashboard)
                         .method(Connection.Method.GET)
-                        .execute();*/
+                        .execute();
 
-                Document document = Jsoup.connect(CustomerCenterSections.class.dashboard)
-                        .data("cookieexists", "false")
-                        .data(LoginFormInputs.class.username, this.username)
-                        .data(LoginFormInputs.class.password, this.password)
+                Document document = Jsoup.connect(customerCenterSections.dashboard)
+                        //.data("cookieexists", "false")
+                        .data(LoginFormInputs.tokenName, LoginFormInputs.tokenNameValue)
+                        .data(LoginFormInputs.btoken, LoginFormInputs.btokenValue)
+                        .data(LoginFormInputs.dispatch, LoginFormInputs.dispatchValue)
+                        .data(LoginFormInputs.appId, LoginFormInputs.appIdValue)
+                        .data(LoginFormInputs.domain, LoginFormInputs.domainValue)
+                        .data(LoginFormInputs.cookieEnabled, LoginFormInputs.cookieEnabledValue)
+                        .data(LoginFormInputs.type, LoginFormInputs.typeValue)
+                        .data(LoginFormInputs.username, username)
+                        .data(LoginFormInputs.password, password)
                         .cookies(loginForm.cookies())
                         .post();
                 System.out.println(document);
