@@ -1,8 +1,8 @@
 Still in dev.
 
-Unofficial OFBiz Videotron repository.
+Unofficial OFBiz Vidéotron repository.
 
-This project is not link in anyway with Videotron and/or Quebecor.
+This project is not link in anyway with Vidéotron and/or Québécor.
 
 This project was made by Jean-Nicolas Boulay.
 
